@@ -237,11 +237,12 @@ public class UploadHandler implements HttpHandler {
                 fos.write(result.fileContent);
             }
 
+            // Store file with token (no P2P server needed)
             int port = fileSharer.offerFile(filePath);
             String token = fileSharer.getToken(port); // Get the access token
-            new Thread(() -> fileSharer.startFileServer(port)).start();
+            // Remove P2P server start - files are now served directly via HTTP
 
-            // Return both port and token in JSON response
+            // Return token in JSON response
             String jsonResponse = "{\"status\": \"success\", \"message\": \"File uploaded successfully\", \"token\": \"" + token + "\", \"fileName\": \"" + filename + "\"}";
             headers.add("Content-Type", "application/json");
             exchange.sendResponseHeaders(200, jsonResponse.getBytes().length);

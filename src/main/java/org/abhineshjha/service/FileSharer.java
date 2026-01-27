@@ -68,12 +68,29 @@ public class FileSharer {
         return null;
     }
     
+    // Get file path by token (for direct HTTP download)
+    public String getFilePathByToken(String token) {
+        Integer port = getPortByToken(token);
+        if (port != null) {
+            return availableFiles.get(port);
+        }
+        return null;
+    }
+    
     // Get file path for a given port
     public String getFilePath(int port) {
         return availableFiles.get(port);
     }
     
-    // Cleanup file after successful download
+    // Cleanup file after successful download (by token)
+    public void cleanupAfterDownload(String token) {
+        Integer port = getPortByToken(token);
+        if (port != null) {
+            cleanupAfterDownload(port);
+        }
+    }
+    
+    // Cleanup file after successful download (by port)
     public void cleanupAfterDownload(int port) {
         String filePath = availableFiles.get(port);
         if (filePath != null) {
