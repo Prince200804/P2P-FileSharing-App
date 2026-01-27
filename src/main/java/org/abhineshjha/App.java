@@ -21,13 +21,16 @@ public class App
                 fileController.stop();
             }));
 
-            System.out.println("Press Enter to stop the server");
-            System.in.read();
-            fileController.stop();
+            // Keep the application running indefinitely (for Docker/production)
+            System.out.println("Server is running. Press Ctrl+C to stop.");
+            Thread.currentThread().join();
 
         } catch (IOException e) {
             System.err.println("Error starting server: " + e.getMessage());
             System.exit(1);
+        } catch (InterruptedException e) {
+            System.err.println("Server interrupted: " + e.getMessage());
+            Thread.currentThread().interrupt();
         }
     }
 }
