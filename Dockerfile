@@ -35,11 +35,16 @@ COPY --from=frontend-build /app/next.config.js ./frontend/
 # Expose ports
 EXPOSE 8080 3000
 
+# Set environment variable for backend URL
+ENV BACKEND_URL=http://127.0.0.1:8080/api/:path*
+
 # Create startup script
 RUN echo '#!/bin/bash' > /app/start.sh && \
     echo 'java -jar /app/backend.jar &' >> /app/start.sh && \
-    echo 'sleep 5' >> /app/start.sh && \
-    echo 'cd /app/frontend && npm start' >> /app/start.sh && \
+    echo 'BACKEND_PID=$!' >> /app/start.sh && \
+    echo 'echo "Backend started with PID $BACKEND_PID"' >> /app/start.sh && \
+    echo 'sleep 10' >> /app/start.sh && \
+    echo 'cd /app/frontend && exec npm start' >> /app/start.sh && \
     chmod +x /app/start.sh
 
 CMD ["/app/start.sh"]
