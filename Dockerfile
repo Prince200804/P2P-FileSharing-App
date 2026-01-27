@@ -26,12 +26,11 @@ RUN apt-get update && apt-get install -y curl && \
 # Copy backend JAR
 COPY --from=backend-build /app/target/p2p-1.0-SNAPSHOT.jar ./backend.jar
 
-# Copy frontend build
+# Copy frontend build and source files needed for production
 COPY --from=frontend-build /app/.next ./frontend/.next
 COPY --from=frontend-build /app/node_modules ./frontend/node_modules
 COPY --from=frontend-build /app/package*.json ./frontend/
 COPY --from=frontend-build /app/next.config.js ./frontend/
-COPY --from=frontend-build /app/public ./frontend/public
 
 # Expose ports
 EXPOSE 8080 3000
