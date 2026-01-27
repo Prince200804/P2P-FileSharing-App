@@ -1,10 +1,19 @@
 services:
   - type: web
-    name: peerlink
+    name: peerlink-backend
     env: docker
-    dockerfilePath: ./Dockerfile
+    dockerfilePath: ./Dockerfile.backend
     plan: free
-    healthCheckPath: /
+    
+  - type: web
+    name: peerlink-frontend
+    env: docker
+    dockerfilePath: ./Dockerfile.frontend
+    plan: free
+    dockerCommand: npm start
     envVars:
-      - key: PORT
-        value: 3000
+      - key: BACKEND_URL
+        fromService:
+          name: peerlink-backend
+          type: web
+          property: host
