@@ -1,0 +1,8 @@
+{
+  "name": "peerlink",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "mvn clean package -DskipTests && cd ui && npm install && npm run build",
+    "start": "java -jar target/p2p-1.0-SNAPSHOT.jar & cd ui && npm start"
+  }
+}

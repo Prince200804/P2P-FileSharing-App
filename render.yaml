@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: peerlink
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: PORT
+        value: 3000
