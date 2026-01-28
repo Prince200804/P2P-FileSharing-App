@@ -8,6 +8,7 @@ import java.util.concurrent.Executors;
 
 import org.abhineshjha.handler.CORSHandler;
 import org.abhineshjha.handler.DownloadHandler;
+import org.abhineshjha.handler.HealthCheckHandler;
 import org.abhineshjha.handler.UploadHandler;
 import org.abhineshjha.service.FileSharer;
 
