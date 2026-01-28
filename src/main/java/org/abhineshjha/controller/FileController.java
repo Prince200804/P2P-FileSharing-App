@@ -31,6 +31,7 @@ public class FileController {
         }
 
         // Wire handlers
+        httpServer.createContext("/healthz", new HealthCheckHandler());
         httpServer.createContext("/api/upload", new UploadHandler(uploadDir, fileSharer));
         httpServer.createContext("/api/download", new DownloadHandler(fileSharer));
         httpServer.createContext("/", new CORSHandler());
